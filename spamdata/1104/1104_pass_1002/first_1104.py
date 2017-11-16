@@ -118,6 +118,8 @@ def svmtest():
     testnpdata = np.array(filldata)
     for npdata in testnpdata:
         rs = clf.predict( npdata.reshape(1,9) )
+        print rs
+
         if rs[0] == '1002':
             count1002 = count1002 + 1
     print 'test1002', count1002

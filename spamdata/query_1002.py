@@ -181,7 +181,9 @@ if __name__ == '__main__':
 
     # sql = "SELECT judge, data from ad_bi_antispam_form_service_log_daily where date = '20171004' and judge = 1002 and req_id != '' and req_id is not null order by req_id desc limit 1000"
 
-    sql = "SELECT judge, data from ad_bi_antispam_form_service_log_daily where date = '20171105' and judge = 1002 and req_id != '' and req_id is not null limit 3000"
+    # sql = "SELECT judge, data from ad_bi_antispam_form_service_log_daily where date = '20171105' and judge = 1002 and req_id != '' and req_id is not null"
+
+    sql = "SELECT judge, data from ad_bi_antispam_form_service_log_daily where date = '20171104' and judge = 0 and req_id != '' and req_id is not null"
 
     rs = hive_query(sql, False)
     features = []
