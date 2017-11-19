@@ -22,7 +22,7 @@ def GetImage(filelist):
 
     for filename in filelist:
         img=array(Image.open(filename).convert("L"))
-        width,height=shape(img);
+        width,height=shape(img)
         index=0
         tmp_value=zeros([1,width,height,1])
         for i in range(width):
