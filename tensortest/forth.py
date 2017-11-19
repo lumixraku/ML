@@ -6,9 +6,12 @@
 import tensorflow as tf
 import tensorflow.examples.tutorials.mnist.input_data as input_data
 import numpy as np
-
-# 尝试下载数据包
+from keras.datasets import mnist as kerasmnist
 mnist = input_data.read_data_sets('mnist_data/', one_hot=True)
+
+(x_train, y_train), (x_test, y_test) = kerasmnist.load_data()   #x是数据 28*28 的图像构成的集合  y 是 label
+x_train = x_train[0:1000]
+y_train = y_train[0:1000]
 
 # y_actual = W * x + b
 x = tf.placeholder(tf.float32, [None, 784])                 # 占位符
@@ -41,17 +44,14 @@ with tf.Session() as sess:
     for i in range(1000):       # 训练阶段，迭代1000次
         batch_xs, batch_ys = mnist.train.next_batch(100)        # 按批次训练，每批100行数据
 
-        # print np.shape(batch_xs[0]), batch_xs[0]
-        # print np.shape(batch_ys[0]), batch_ys[0]
-        # print '............'
         # 执行训练（此处为占位符x, y_actual载入数据，然后使用配置好的train来训练）
         sess.run(train, feed_dict={x: batch_xs, y_actual: batch_ys})
 
         if i % 500 == 0:        # 每训练500次，测试一次
             # print("correct_prediction", sess.run(correct_prediction, feed_dict={x: mnist.test.images, y_actual: mnist.test.labels}))
             predictrs = sess.run(y_predictmax, feed_dict={x: mnist.test.images, y_actual: mnist.test.labels})
-            # print predictrs[0:100]
+            print predictrs[0:100]
 
             actualrs = sess.run(y_actualmax, feed_dict={x: mnist.test.images, y_actual: mnist.test.labels})
-            # print actualrs[0:100]
+            print actualrs[0:100]
             # print("accuracy:", sess.run(accuracy, feed_dict={x: mnist.test.images, y_actual: mnist.test.labels}))
