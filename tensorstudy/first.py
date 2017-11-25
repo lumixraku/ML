@@ -88,7 +88,6 @@ train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
 sess = tf.InteractiveSession()
 tf.global_variables_initializer().run()
 
-
 # Train
 for _ in range(1000):
     batch_xs, batch_ys = mnist.train.next_batch(100)

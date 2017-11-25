@@ -17,8 +17,15 @@ W = tf.Variable(tf.zeros([784, 10]))                        # 初始化权值W
 b = tf.Variable(tf.zeros([10]))                             # 初始化偏置b
 
 # 建立抽象模型
+# 构建Softmax 回归模型
 y_predict = tf.nn.softmax(tf.matmul(x, W) + b)              # 加权变换并进行softmax回归，得到预测值
-cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_actual * tf.log(y_predict), reduction_indices=1))   # 求交叉熵
+
+
+# 指定最小化误差用的损失函数，我们的损失函数是目标类别和预测类别之间的交叉熵。
+# 求交叉熵
+cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_actual * tf.log(y_predict), reduction_indices=1))
+
+# 我们用最速下降法让交叉熵下降，步长为0.5.
 train = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)     # 用梯度下降法使得残差最小
 
 y_predictmax = tf.argmax(y_predict, 1)
@@ -50,7 +57,7 @@ with tf.Session() as sess:
         if i % 500 == 0:        # 每训练500次，测试一次
             # print("correct_prediction", sess.run(correct_prediction, feed_dict={x: mnist.test.images, y_actual: mnist.test.labels}))
             predictrs = sess.run(y_predictmax, feed_dict={x: mnist.test.images, y_actual: mnist.test.labels})
-            # print predictrs[0:100]
+            print predictrs[0:100]
 
             actualrs = sess.run(y_actualmax, feed_dict={x: mnist.test.images, y_actual: mnist.test.labels})
             # print actualrs[0:100]
