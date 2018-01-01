@@ -13,7 +13,7 @@ from keras import backend as K
 import numpy as np
 
 
-def main():
+
     # batch_size 太小会导致训练慢，过拟合等问题，太大会导致欠拟合。所以要适当选择
     batch_size = 128
     # 0-9手写数字一个有10个类别
@@ -57,16 +57,14 @@ def main():
     y_train = keras.utils.np_utils.to_categorical(y_train, num_classes)
     y_test = keras.utils.np_utils.to_categorical(y_test, num_classes)
 
-
-
     # 牛逼的Sequential类可以让我们灵活地插入不同的神经网络层
     model = Sequential()
     # 加上一个2D卷积层， 32个输出（也就是卷积通道），激活函数选用relu，
     # 卷积核的窗口选用3*3像素窗口
     model.add(Conv2D(32,
-                    activation='relu',
-                    input_shape=input_shape,
-                    nb_row=3,
+                     activation='relu',
+                     input_shape=input_shape,
+                     nb_row=3,
                     nb_col=3))
     # 64个通道的卷积层
     model.add(Conv2D(64, activation='relu',
